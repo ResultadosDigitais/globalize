@@ -63,6 +63,18 @@ module Globalize
       i18n_fallbacks? ? I18n.fallbacks[for_locale] : [for_locale.to_sym]
     end
 
+    def active_record_base_class=(klass)
+      unless klass <= ::ActiveRecord::Base
+        raise ArgumentError, "#{klass} does not inherit from ActiveRecord::Base"
+      end
+
+      @active_record_base_class = klass
+    end
+
+    def active_record_base_class
+      @active_record_base_class || ::ActiveRecord::Base
+    end
+
     # Thread-safe global storage
     def storage
       RequestStore.store
