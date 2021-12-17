@@ -1,7 +1,6 @@
 module Globalize
   module ActiveRecord
-    class Translation < ::ActiveRecord::Base
-
+    Translation = Class.new(Globalize.active_record_base_class) do
       validates :locale, :presence => true
 
       class << self
